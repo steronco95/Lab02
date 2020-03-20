@@ -14,7 +14,7 @@ public class FXMLController {
 
 	private List <Word> paroleInserite = new ArrayList<>();
 	
-	AlienDictionary ad = new AlienDictionary();
+	AlienDictionary ad;
 	
     @FXML
     private ResourceBundle resources;
@@ -45,17 +45,38 @@ public class FXMLController {
     @FXML
     void doTranslate(ActionEvent event) {
 
+    	
+    	
     	String inserimento = txtInserisci.getText();
     	
     	String [] ins = inserimento.split(" ");
     	
-    	Word w1 = new Word(ins[0],ins[1]);
+    	Word w1 = new Word(ins[0]);
+    	
+    	txtVisualizza.clear();
     	
     	if(ins.length == 2) {
-    		ad.addWord(w1.getAlienWord(), w1.getTranslate());
-    	}else if (ins.length == 1) {
-    		txtVisualizza.appendText(ad.translateWord(ins[0]));
+//    		w1.addWord(ins[1]);
+    		w1.addTranslate(ins[1]);
+    		ad.addWord(w1);
+    		txtVisualizza.appendText("parola inserita correttamente!");
+    		txtInserisci.clear();
+    		return;
+    	}else if(ins.length == 1) {
+    		if(w1.equals(ins[0])) {
+    			txtVisualizza.appendText("traduzione parola " + ins[0] + ":\n" + ad.translateWord(ins[0]));
+    			return;
+    		}else {
+    			txtVisualizza.appendText("parola non presente nel dizionario!");
+    			return;
+    		}
+    		
     	}
+    	
+    	
+    	
+    	
+    	
     	
     	
     	
@@ -70,6 +91,7 @@ public class FXMLController {
         assert alienImage != null : "fx:id=\"alienImage\" was not injected: check your FXML file 'Scene.fxml'.";
         assert txtVisualizza != null : "fx:id=\"txtVisualizza\" was not injected: check your FXML file 'Scene.fxml'.";
         assert btnClear != null : "fx:id=\"btnClear\" was not injected: check your FXML file 'Scene.fxml'.";
+        ad = new AlienDictionary();
 
     }
 }

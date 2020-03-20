@@ -6,22 +6,46 @@ import java.util.List;
 public class Word {
 
 	private String alienWord;
-	private String translate;
-	private List <String> aw = new ArrayList<>();
+	private List <String>  translate = new ArrayList<>();
+	private String traduzione;
 	
+	public Word(String string) {
+		this.alienWord = string;
+	}
 
-	public Word(String alienWord, String translate) {
-		this.alienWord = alienWord;
-		this.translate = translate;
+	public void addWord(String string) {
+		
+		translate.add(string);
+		
 	}
 
 	public String getAlienWord() {
 		return alienWord;
 	}
 
-	public String getTranslate() {
-		return translate;
+//	public List<String> getTranslate() {
+//		return translate;
+//	}
+	
+	public boolean equals (String parola) {
+		
+		return parola.equals(alienWord);
 	}
+
+	public void addTranslate(String string) {
+		this.traduzione = string;
+		
+	}
+	
+	public String getTranslate() {
+		return traduzione;
+	}
+	
+	
+	
+	
+	
+
 	
 	
 	

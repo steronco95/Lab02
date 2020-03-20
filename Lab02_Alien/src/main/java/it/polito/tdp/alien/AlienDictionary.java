@@ -6,35 +6,34 @@ public class AlienDictionary {
 
 	private String alienWord;
 	private String translate;
-	private Map<String,List<String>> dictionary = new TreeMap<>();
+	private List<Word> dictionary = new ArrayList<>();
 	
-	
-	public void addWord(String alienWord2, String translate2) {
+
+	public void addWord(Word w1) {
 		
-		if(dictionary.containsKey(alienWord2)) {
-			dictionary.get(alienWord2).add(translate2);
-		}else {
-			List<String> translate = new ArrayList<>();
-			
-			translate.add(translate2);
-			
-			dictionary.put(alienWord2, translate);
-		}
-		
-		
+		dictionary.add(w1);
 		
 	}
-
-
-	public String translateWord(String string) {
+	
+	public String translateWord (String alienWord) {
 		
-		StringBuffer result = new StringBuffer();
+		Word tempW = null;
 		
-		for(String s : dictionary.get(string)) {
-			result.append(s).append("\n");
+		for(Word w : dictionary) {
+			if(tempW.getAlienWord().equals(alienWord)) {
+				tempW = w;
+				break;
+			}
 		}
 		
-		return result.toString();
+//		StringBuffer result = new StringBuffer();
+//		
+//		for(String s : tempW.getTranslate()) {
+//			result.append(s).append("\n");
+//		}
+		
+		
+		return tempW.getTranslate();
 	}
 	
 	
