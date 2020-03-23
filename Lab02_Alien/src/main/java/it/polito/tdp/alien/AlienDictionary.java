@@ -28,6 +28,12 @@ public class AlienDictionary {
 		
 		return "parola non inserita nel vocabolario!";
 	}
+
+	public void clear() {
+		
+		dictionary.clear();
+		
+	}
 	
 	
 

@@ -39,6 +39,10 @@ public class FXMLController {
     @FXML
     void doReset(ActionEvent event) {
 
+    	txtVisualizza.clear();
+    	word.clear();
+    	ad.clear();
+    	
     }
 
     @FXML
@@ -47,10 +51,22 @@ public class FXMLController {
     	
     	String inserimento = txtInserisci.getText();
 		
-		String [] ins = inserimento.split(";");
+		String [] ins = inserimento.split(" ");
 		
-		String parola = ins[0];
-		String traduzione = ins[1];
+		String parola = null;
+		String traduzione = null;
+		
+		txtVisualizza.clear();
+		
+		if(ins.length==2) {
+			parola = ins[0];
+			 traduzione = ins[1];
+		}else if(ins.length == 1){
+			parola = ins[0];
+			 
+			
+		}
+		
 		
 		Word tempW = null;
 		
@@ -64,6 +80,7 @@ public class FXMLController {
 		if(tempW != null) {
 			if(traduzione != null) {
 				tempW.addTranslate(traduzione);
+				txtVisualizza.appendText("traduzione aggiunta!");
 			}else {
 				txtVisualizza.appendText(ad.getTraduzione(tempW));
 			}
@@ -73,6 +90,7 @@ public class FXMLController {
 				w.addTranslate(traduzione);
 				ad.addWord(w);
 				word.add(w);
+				txtVisualizza.appendText("aggiunta nuova parola con relativa traduzione!");
 			}else {
 				txtVisualizza.appendText("parola non presente nel dizionario!");
 			}

@@ -22,6 +22,9 @@ public class Word {
 	}
 
 	public List<String> getTraduzioni() {
+		
+		Collections.sort(traduzioni);
+		
 		return traduzioni;
 	}
 	
