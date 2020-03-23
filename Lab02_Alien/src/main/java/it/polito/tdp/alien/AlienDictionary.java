@@ -1,48 +1,34 @@
 package it.polito.tdp.alien;
-import java.util.*;
 
+import java.util.*;
 
 public class AlienDictionary {
 
-	private String alienWord;
-	private String translate;
 	private List<Word> dictionary = new ArrayList<>();
 	
-
-	public void addWord(Word w1) {
-		
-		dictionary.add(w1);
-		
+	public void addWord(Word w) {
+		dictionary.add(w);
 	}
-	
-	public String translateWord (String alienWord) {
+
+	public String getTraduzione(Word tempW) {
 		
-		Word tempW = null;
+		Word w = null;
 		
-		for(Word w : dictionary) {
-			if(tempW.getAlienWord().equals(alienWord)) {
-				tempW = w;
-				break;
+		if(dictionary.contains(tempW)) {
+		
+			StringBuffer result = new StringBuffer();
+			
+			for(String s : tempW.getTraduzioni()) {
+				result.append(s).append("\n");
 			}
+			
+			return result.toString();
 		}
 		
-//		StringBuffer result = new StringBuffer();
-//		
-//		for(String s : tempW.getTranslate()) {
-//			result.append(s).append("\n");
-//		}
 		
-		
-		return tempW.getTranslate();
+		return "parola non inserita nel vocabolario!";
 	}
 	
 	
 
-	
-	
-	
-	
-
-	
-	
 }

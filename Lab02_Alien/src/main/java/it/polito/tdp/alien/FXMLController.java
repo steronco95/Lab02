@@ -12,9 +12,8 @@ import javafx.scene.image.ImageView;
 
 public class FXMLController {
 
-	private List <Word> paroleInserite = new ArrayList<>();
-	
-	AlienDictionary ad;
+	AlienDictionary ad = new AlienDictionary();
+	private List<Word> word = new ArrayList<>();
 	
     @FXML
     private ResourceBundle resources;
@@ -44,39 +43,40 @@ public class FXMLController {
 
     @FXML
     void doTranslate(ActionEvent event) {
-
     	
     	
     	String inserimento = txtInserisci.getText();
-    	
-    	String [] ins = inserimento.split(" ");
-    	
-    	Word w1 = new Word(ins[0]);
-    	
-    	txtVisualizza.clear();
-    	
-    	if(ins.length == 2) {
-//    		w1.addWord(ins[1]);
-    		w1.addTranslate(ins[1]);
-    		ad.addWord(w1);
-    		txtVisualizza.appendText("parola inserita correttamente!");
-    		txtInserisci.clear();
-    		return;
-    	}else if(ins.length == 1) {
-    		if(w1.equals(ins[0])) {
-    			txtVisualizza.appendText("traduzione parola " + ins[0] + ":\n" + ad.translateWord(ins[0]));
-    			return;
-    		}else {
-    			txtVisualizza.appendText("parola non presente nel dizionario!");
-    			return;
-    		}
-    		
-    	}
-    	
-    	
-    	
-    	
-    	
+		
+		String [] ins = inserimento.split(";");
+		
+		String parola = ins[0];
+		String traduzione = ins[1];
+		
+		Word tempW = null;
+		
+		for(Word w1 : word) {
+			if(w1.getParola().equals(parola)) {
+				tempW = w1;
+				break;
+			}
+		}
+		
+		if(tempW != null) {
+			if(traduzione != null) {
+				tempW.addTranslate(traduzione);
+			}else {
+				txtVisualizza.appendText(ad.getTraduzione(tempW));
+			}
+		}else {
+			if(traduzione != null) {
+				Word w = new Word(parola);
+				w.addTranslate(traduzione);
+				ad.addWord(w);
+				word.add(w);
+			}else {
+				txtVisualizza.appendText("parola non presente nel dizionario!");
+			}
+		}
     	
     	
     	
@@ -91,7 +91,7 @@ public class FXMLController {
         assert alienImage != null : "fx:id=\"alienImage\" was not injected: check your FXML file 'Scene.fxml'.";
         assert txtVisualizza != null : "fx:id=\"txtVisualizza\" was not injected: check your FXML file 'Scene.fxml'.";
         assert btnClear != null : "fx:id=\"btnClear\" was not injected: check your FXML file 'Scene.fxml'.";
-        ad = new AlienDictionary();
+        
 
     }
 }
